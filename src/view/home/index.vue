@@ -7,9 +7,9 @@
 		<van-swipe-item><img src="https://img.yzcdn.cn/public_files/2017/09/05/fd08f07665ed67d50e11b32a21ce0682.jpg" alt="" class="images"></van-swipe-item>
 	</van-swipe>
 <van-row class='m-bv'>
-  <van-col span="8" class='bv'><van-icon name="passed" class='pass' />精选品牌</van-col>
-  <van-col span="8" class='bv'><van-icon name="passed" class='pass' />大V推荐</van-col>
-  <van-col span="8" class='bv'><van-icon name="passed" class='pass' />无忧退货</van-col>
+  <van-col span="8" class='bv'><van-icon name="passed" class='pass' /> 精选品牌</van-col>
+  <van-col span="8" class='bv'><van-icon name="passed" class='pass' /> 大V推荐</van-col>
+  <van-col span="8" class='bv'><van-icon name="passed" class='pass' /> 无忧退货</van-col>
 </van-row>
 
 	
