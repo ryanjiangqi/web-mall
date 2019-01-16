@@ -26,8 +26,8 @@
 
 		<van-row class="home-cate" style="margin-top: 10px;">
 			<van-col span="6">
-				<span class="home-cate-img"><img src="https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg"
-					 alt="" class="home-cate-images"></span>
+				<span class="home-cate-img"><a href="/#/goods"><img src="https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg"
+					 alt="" class="home-cate-images"></a></span>
 				<span class="home-cate-title">分类名</span>
 			</van-col>
 			<van-col span="6">
