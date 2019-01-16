@@ -33,9 +33,31 @@ const routes = [
 		name: 'home',
 		component: () => import('./view/home'),
 		meta: {
+			title: '首页'
+		}
+	},
+	{
+		name: 'items',
+		component: () => import('./view/items'),
+		meta: {
+			title: '分类'
+		}
+	},
+	{
+		name: 'list',
+		component: () => import('./view/list'),
+		meta: {
+			title: '商品列表'
+		}
+	},
+	{
+		name: 'detail',
+		component: () => import('./view/detail'),
+		meta: {
 			title: '商品详情'
 		}
 	}
+	
 ];
 
 // add route path
