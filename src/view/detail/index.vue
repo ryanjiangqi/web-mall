@@ -18,15 +18,19 @@
 			</van-cell-group>
 
 			<van-row class='detail-m-bv'>
-				<van-col span="8" class='detail-bv'>
+				<van-col span="6" class='detail-bv'>
 					<van-icon name="passed" class='detail-pass' />
 					精选品牌
 				</van-col>
-				<van-col span="8" class='detail-bv'>
+				<van-col span="6" class='detail-bv'>
 					<van-icon name="passed" class='detail-pass' />
 					大V推荐
 				</van-col>
-				<van-col span="8" class='detail-bv'>
+				<van-col span="6" class='detail-bv'>
+					<van-icon name="passed" class='detail-pass' />
+					无忧退货
+				</van-col>
+				<van-col span="6" class='detail-bv'>
 					<van-icon name="passed" class='detail-pass' />
 					无忧退货
 				</van-col>
@@ -42,9 +46,30 @@
 		<van-goods-action>
 			<van-goods-action-mini-btn icon="chat-o" text="客服" @click="onClickMiniBtn" />
 			<van-goods-action-mini-btn icon="cart-o" text="购物车" @click="onClickMiniBtn" />
-			<van-goods-action-big-btn text="加入购物车" @click="onClickBigBtn" />
+			<van-goods-action-big-btn text="加入购物车" @click="showBase = true" />
 			<van-goods-action-big-btn primary text="立即购买" @click="onClickBigBtn" />
 		</van-goods-action>
+
+		<!-- 基础用法 -->
+		<div class="sku-container">
+			<van-sku
+					v-model="showBase"
+					:sku="skuData.sku"
+					:goods="skuData.goods_info"
+					:goods-id="skuData.goods_id"
+					:hide-stock="skuData.sku.hide_stock"
+					:quota="skuData.quota"
+					:quota-used="skuData.quota_used"
+					reset-stepper-on-hide
+					reset-selected-sku-on-hide
+					disable-stepper-input
+					:close-on-click-overlay="closeOnClickOverlay"
+					:message-config="messageConfig"
+					:custom-sku-validator="customSkuValidator"
+					@buy-clicked="onBuyClicked"
+					@add-cart="onAddCartClicked"
+			/>
+		</div>
 
 	</div>
 </template>
@@ -65,7 +90,8 @@
 		Rate,
 		Sku,
 	} from 'vant';
-
+    import skuData from './data';
+    import { LIMIT_TYPE } from './constants';
 	export default {
 		components: {
 			[Swipe.name]: Swipe,
@@ -84,8 +110,41 @@
 			[Sku.name]: Sku,
 		},
 		data() {
+            this.skuData = skuData;
 			return {
-
+                showBase:false,
+                showBase: false,
+                showCustom: false,
+                showStepper: false,
+                showSoldout: false,
+                closeOnClickOverlay: true,
+                initialSku: {
+                    s1: '30349',
+                    s2: '1193'
+                },
+                customSkuValidator: () => '请选择xxx',
+                customStepperConfig: {
+                    quotaText: '单次限购100件',
+                    stockFormatter: (stock) => `剩余${stock}件`,
+                    handleOverLimit: (data) => {
+                        const { action, limitType, quota } = data;
+                        if (action === 'minus') {
+                            this.$toast('至少选择一件商品');
+                        } else if (action === 'plus') {
+                            if (limitType === LIMIT_TYPE.QUOTA_LIMIT) {
+                                this.$toast(`限购${quota}件`);
+                            } else {
+                                this.$toast('库存不够了');
+                            }
+                        }
+                    }
+                },
+                messageConfig: {
+                    uploadImg: (file, img) => new Promise(resolve => {
+                        setTimeout(() => resolve(img), 1000);
+                    }),
+                    uploadMaxSize: 3
+                }
 			};
 		},
 		methods: {
@@ -98,7 +157,16 @@
 
 			onClickBigBtn() {
 				
-			}
+			},
+            onBuyClicked(data) {
+                this.$toast(JSON.stringify(data));
+            },
+            onAddCartClicked(data) {
+                this.$toast(JSON.stringify(data));
+            },
+            onPointClicked() {
+                this.$toast('积分兑换');
+            }
 		}
 	};
 </script>
@@ -133,5 +201,8 @@
 	.detail-banner img {
 		width: 100%;
 		margin-top: 5px;
+	}
+	.van-hairline--top-bottom::after{
+		border-width:0;
 	}
 </style>
