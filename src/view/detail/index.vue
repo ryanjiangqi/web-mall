@@ -63,6 +63,7 @@
 		GoodsActionMiniBtn,
 		NavBar,
 		Rate,
+		Sku,
 	} from 'vant';
 
 	export default {
@@ -80,6 +81,7 @@
 			[GoodsActionMiniBtn.name]: GoodsActionMiniBtn,
 			[NavBar.name]: NavBar,
 			[Rate.name]: Rate,
+			[Sku.name]: Sku,
 		},
 		data() {
 			return {
@@ -90,10 +92,13 @@
 			onClickLeft() {
 				this.$router.back(-1)
 			},
-			onClickMiniBtn() {},
-			onClickMiniBtn() {},
-			onClickBigBtn() {},
-			onClickBigBtn() {}
+			onClickMiniBtn() {
+				
+			},
+
+			onClickBigBtn() {
+				
+			}
 		}
 	};
 </script>
