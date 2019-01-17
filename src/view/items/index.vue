@@ -15,7 +15,7 @@
             </van-col>
         </van-row>
         <van-row class="items-cate">
-            <van-col span="6" v-for="val in value.child">
+            <van-col span="6" v-for="val in value.child" style="margin-top: 5px;">
 				<span class="items-cate-img"><a href="/#/list"><img
                         v-bind:src="appUrl + '/' + val.image"
                         alt="" class="items-cate-images"></a></span>
@@ -86,7 +86,7 @@
     }
 
     .items-cate-images {
-        padding: 5px 5px 0 5px;
+
         width: 40px;
 
     }
