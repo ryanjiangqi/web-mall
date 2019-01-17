@@ -56,7 +56,29 @@ const routes = [
 		meta: {
 			title: '商品详情'
 		}
+	},
+	{
+		name: 'checkout',
+		component: () => import('./view/checkout'),
+		meta: {
+			title: '商品详情'
+		}
+	},
+	{
+		name: 'addresslist',
+		component: () => import('./view/address_list'),
+		meta: {
+			title: '商品详情'
+		}
+	},
+	{
+		name: 'add_address',
+		component: () => import('./view/add_address'),
+		meta: {
+			title: '商品详情'
+		}
 	}
+	
 	
 ];
 
