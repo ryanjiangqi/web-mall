@@ -69,17 +69,6 @@
 			</van-col>
 		</van-row>
 
-		<van-cell-group style="margin-top: 10px;">
-			<van-cell class="home-news" title="头条" value="" is-link url="//youzan.github.io/vant/mobile.html" />
-			<van-cell class="home-news" title="单元格单元格单元格q1单元格单元格单元格q1单元格单元格单元格" label="描述信息" />
-			<van-cell class="home-news" title="单元格单元元格q1" label="描述信息" />
-			<van-cell class="home-news" title="单元格单元格格q1" label="描述信息" />
-			<van-cell class="home-news" title="单元格单元格单元格q1" label="描述信息" />
-		</van-cell-group>
-		<van-row class='home-banner'>
-			<van-col span="24"><img src="https://img.yzcdn.cn/public_files/2017/09/05/4e3ea0898b1c2c416eec8c11c5360833.jpg" alt=""></van-col>
-		</van-row>
-
 		<div class="load_class">
 			<van-list v-model="loading" :finished="finished" finished-text="这是我的底线了" @load="onLoad">
 				<van-cell-group v-for="item in list" style="margin-top: 5px;">
