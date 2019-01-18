@@ -207,7 +207,6 @@
 
 	.home-bv {
 		text-align: center;
-		color: rgba(69, 90, 100, .6);
 		font-size: 14px;
 	}
 

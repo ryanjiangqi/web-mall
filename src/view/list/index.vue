@@ -70,8 +70,6 @@
 	};
 </script>
 <style>
-
-
 	.list-cate {
 		text-align: center;
 		padding-bottom: 60px;
@@ -81,9 +79,7 @@
 		margin-top: 10px;
 	}
 
-
 	.list-cate-title {
-		color: #4e4e4e;
 		font-size: 13px;
 		width: 90%;
 		float: left;
@@ -107,5 +103,6 @@
 		float: left;
 		margin-left: 10%;
 		text-align: left;
+		margin-top: 5px;
 	}
 </style>

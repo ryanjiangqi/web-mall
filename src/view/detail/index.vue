@@ -32,7 +32,7 @@
 				</van-col>
 				<van-col span="6" class='detail-bv'>
 					<van-icon name="passed" class='detail-pass' />
-					无忧退货
+					折扣优惠
 				</van-col>
 			</van-row>
 

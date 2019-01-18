@@ -6,16 +6,14 @@
 
 <style>
 	@font-face {
-		font-family: 'zt';
-		src: url(../public/zt4.ttf);
+	/* 	font-family: 'zt';
+		src: url(../public/zt3-1.TTF); */
 	}
-
 	body {
-		font-family: 'zt';
+		/* font-family: 'zt'; */
 		font-size: 16px;
+		color: #4e4e4e;
 		background-color: #f8f8f8;
 		-webkit-font-smoothing: antialiased;
-
-
 	}
 </style>
