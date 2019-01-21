@@ -21,8 +21,8 @@ export default {
             name: '白色'
           }
         ],
-        k_s: 's1',
-        count: 2
+        k_s: 's111',
+        count: 10
       },
       {
         k: '尺寸',
@@ -37,7 +37,7 @@ export default {
             name: '2'
           }
         ],
-        k_s: 's2',
+        k_s: 's222',
         count: 2
       }
     ],
@@ -47,8 +47,8 @@ export default {
         price: 100,
         discount: 100,
         code: '',
-        s1: '1215',
-        s2: '1193',
+        s111: '1215',
+        s222: '1193',
         s3: '0',
         s4: '0',
         s5: '0',
@@ -66,8 +66,8 @@ export default {
         price: 100,
         discount: 100,
         code: '',
-        s1: '1215',
-        s2: '1194',
+        s111: '1215',
+        s222: '1194',
         s3: '0',
         s4: '0',
         s5: '0',
@@ -85,8 +85,8 @@ export default {
         price: 100,
         discount: 100,
         code: '',
-        s1: '30349',
-        s2: '1193',
+        s111: '30349',
+        s222: '1193',
         s3: '0',
         s4: '0',
         s5: '0',
@@ -104,8 +104,8 @@ export default {
         price: 100,
         discount: 100,
         code: '',
-        s1: '30349',
-        s2: '1194',
+        s111: '30349',
+        s222: '1194',
         s3: '0',
         s4: '0',
         s5: '0',
@@ -119,7 +119,7 @@ export default {
         goods_id: 946755
       }
     ],
-    price: '1.00',
+    price: '1222222.00',
     stock_num: 227,
     collection_id: 2261,
     collection_price: 0,

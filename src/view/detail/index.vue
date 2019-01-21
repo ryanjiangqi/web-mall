@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<div style="padding-bottom: 60px;">
-			<van-nav-bar title="标题" left-text="返回" left-arrow @click-left="onClickLeft" />
+			<van-nav-bar title="产品详情" left-text="返回" left-arrow @click-left="onClickLeft" />
 			<van-swipe :autoplay="3000" indicator-color="white">
 				<van-swipe-item><img src="https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg" alt=""
 					 class="detail-images"></van-swipe-item>
@@ -10,12 +10,25 @@
 				<van-swipe-item><img src="https://img.yzcdn.cn/public_files/2017/09/05/fd08f07665ed67d50e11b32a21ce0682.jpg" alt=""
 					 class="detail-images"></van-swipe-item>
 			</van-swipe>
-			<van-cell-group>
-				<van-cell title="商品名称" value="销量:88" label="商品描述商品描述商品描述商品描述商品描述" />
-			</van-cell-group>
-			<van-cell-group>
-				<van-cell title="价格$88" value="库存:88" />
-			</van-cell-group>
+			<div class="van-cell-group van-hairline--top-bottom">
+				<div class="van-cell">
+					<div class="van-cell__title"><span>{{skuData.goods_info.title}}</span>
+						<div class="van-cell__label">{{skuData.goods_info.keyword}}</div>
+					</div>
+					<div class="van-cell__value"><span>销量:200</span></div>
+
+				</div>
+			</div>
+
+
+			<div class="van-cell-group van-hairline--top-bottom">
+				<div class="van-cell">
+					<div class="van-cell__title"><span>￥{{skuData.goods_info.price}}</span>
+					</div>
+					<div class="van-cell__value"><span>库存:{{skuData.sku.stock_num}}</span></div>
+
+				</div>
+			</div>
 
 			<van-row class='detail-m-bv'>
 				<van-col span="6" class='detail-bv'>
@@ -36,11 +49,7 @@
 				</van-col>
 			</van-row>
 
-			<van-row class='detail-banner'>
-				<van-col span="24"><img src="https://img.yzcdn.cn/public_files/2017/09/05/4e3ea0898b1c2c416eec8c11c5360833.jpg" alt=""></van-col>
-				<van-col span="24"><img src="https://img.yzcdn.cn/public_files/2017/09/05/4e3ea0898b1c2c416eec8c11c5360833.jpg" alt=""></van-col>
-				<van-col span="24"><img src="https://img.yzcdn.cn/public_files/2017/09/05/4e3ea0898b1c2c416eec8c11c5360833.jpg" alt=""></van-col>
-			</van-row>
+			<div v-html="htmlvalue"></div>
 
 		</div>
 		<van-goods-action>
@@ -52,23 +61,10 @@
 
 		<!-- 基础用法 -->
 		<div class="sku-container">
-			<van-sku
-					v-model="showBase"
-					:sku="skuData.sku"
-					:goods="skuData.goods_info"
-					:goods-id="skuData.goods_id"
-					:hide-stock="skuData.sku.hide_stock"
-					:quota="skuData.quota"
-					:quota-used="skuData.quota_used"
-					reset-stepper-on-hide
-					reset-selected-sku-on-hide
-					disable-stepper-input
-					:close-on-click-overlay="closeOnClickOverlay"
-					:message-config="messageConfig"
-					:custom-sku-validator="customSkuValidator"
-					@buy-clicked="onBuyClicked"
-					@add-cart="onAddCartClicked"
-			/>
+			<van-sku v-model="showBase" :sku="skuData.sku" :goods="skuData.goods_info" :goods-id="skuData.goods_id" :hide-stock="skuData.sku.hide_stock"
+			 :quota="skuData.quota" :quota-used="skuData.quota_used" reset-stepper-on-hide reset-selected-sku-on-hide
+			 disable-stepper-input :close-on-click-overlay="closeOnClickOverlay" :message-config="messageConfig"
+			 :custom-sku-validator="customSkuValidator" @buy-clicked="onBuyClicked" @add-cart="onAddCartClicked" />
 		</div>
 
 	</div>
@@ -90,8 +86,11 @@
 		Rate,
 		Sku,
 	} from 'vant';
-    import skuData from './data';
-    import { LIMIT_TYPE } from './constants';
+	import skuData from './data';
+
+	import {
+		LIMIT_TYPE
+	} from './constants';
 	export default {
 		components: {
 			[Swipe.name]: Swipe,
@@ -101,7 +100,6 @@
 			[Row.name]: Row,
 			[Col.name]: Col,
 			[Icon.name]: Icon,
-
 			[GoodsAction.name]: GoodsAction,
 			[GoodsActionBigBtn.name]: GoodsActionBigBtn,
 			[GoodsActionMiniBtn.name]: GoodsActionMiniBtn,
@@ -110,63 +108,86 @@
 			[Sku.name]: Sku,
 		},
 		data() {
-            this.skuData = skuData;
 			return {
-                showBase:false,
-                showBase: false,
-                showCustom: false,
-                showStepper: false,
-                showSoldout: false,
-                closeOnClickOverlay: true,
-                initialSku: {
-                    s1: '30349',
-                    s2: '1193'
-                },
-                customSkuValidator: () => '请选择xxx',
-                customStepperConfig: {
-                    quotaText: '单次限购100件',
-                    stockFormatter: (stock) => `剩余${stock}件`,
-                    handleOverLimit: (data) => {
-                        const { action, limitType, quota } = data;
-                        if (action === 'minus') {
-                            this.$toast('至少选择一件商品');
-                        } else if (action === 'plus') {
-                            if (limitType === LIMIT_TYPE.QUOTA_LIMIT) {
-                                this.$toast(`限购${quota}件`);
-                            } else {
-                                this.$toast('库存不够了');
-                            }
-                        }
-                    }
-                },
-                messageConfig: {
-                    uploadImg: (file, img) => new Promise(resolve => {
-                        setTimeout(() => resolve(img), 1000);
-                    }),
-                    uploadMaxSize: 3
-                }
+				htmlvalue:[],
+				product: [],
+				showBase: false,
+				showCustom: false,
+				showStepper: false,
+				skuData: skuData,
+				showSoldout: false,
+				closeOnClickOverlay: true,
+				initialSku: {
+					s1: '30349',
+					s2: '1193'
+				},
+				customSkuValidator: () => '请选择xxx',
+				customStepperConfig: {
+					quotaText: '单次限购100件',
+					stockFormatter: (stock) => `剩余${stock}件`,
+					handleOverLimit: (data) => {
+						const {
+							action,
+							limitType,
+							quota
+						} = data;
+						if (action === 'minus') {
+							this.$toast('至少选择一件商品');
+						} else if (action === 'plus') {
+							if (limitType === LIMIT_TYPE.QUOTA_LIMIT) {
+								this.$toast(`限购${quota}件`);
+							} else {
+								this.$toast('库存不够了');
+							}
+						}
+					}
+				},
+				messageConfig: {
+					uploadImg: (file, img) => new Promise(resolve => {
+						setTimeout(() => resolve(img), 1000);
+					}),
+					uploadMaxSize: 3
+				}
 			};
 		},
+
+		created() {
+			//this.getData();
+		},
+		mounted() {
+			this.getData();
+		},
 		methods: {
+			getData() {
+				this.url = '/api/product/detail';
+				this.$axios.post(this.url, {}, {
+					headers: {}
+				}).then((res) => {
+					this.skuData = res.data.data;
+					this.htmlvalue=res.data.data.goods_info.description;
+				})
+
+			},
+
 			onClickLeft() {
 				this.$router.back(-1)
 			},
 			onClickMiniBtn() {
-				
+
 			},
 
 			onClickBigBtn() {
-				
+
 			},
-            onBuyClicked(data) {
-                this.$toast(JSON.stringify(data));
-            },
-            onAddCartClicked(data) {
-                this.$toast(JSON.stringify(data));
-            },
-            onPointClicked() {
-                this.$toast('积分兑换');
-            }
+			onBuyClicked(data) {
+				this.$toast(JSON.stringify(data));
+			},
+			onAddCartClicked(data) {
+				this.$toast(JSON.stringify(data));
+			},
+			onPointClicked() {
+				this.$toast('积分兑换');
+			}
 		}
 	};
 </script>
@@ -202,7 +223,12 @@
 		width: 100%;
 		margin-top: 5px;
 	}
-	.van-hairline--top-bottom::after{
-		border-width:0;
+
+	.van-hairline--top-bottom::after {
+		border-width: 0;
+	}
+
+	.van-cell-group {
+		background: #fff;
 	}
 </style>
