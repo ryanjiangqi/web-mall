@@ -4,7 +4,7 @@
 		<!-- <van-list v-model="loading" :finished="finished" finished-text="这是我的底线了" @load="onLoad"> -->
 		<van-row class="list-cate">
 			<van-col span="12" class='list-pro' v-for="item in product">
-				<span class="list-cate-img"><a href="/#/detail"><img v-bind:src="appUrl + '/' + item.cover_image" alt="" class="list-cate-images"></a></span>
+				<span class="list-cate-img"><a v-bind:href="'#/detail/id/'+item.id"><img v-bind:src="appUrl + '/' + item.cover_image" alt="" class="list-cate-images"></a></span>
 				<span class="list-cate-title">{{item.name}}</span>
 				<span class="list-cate-price">￥{{item.price}}</span>
 			</van-col>

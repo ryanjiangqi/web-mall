@@ -51,7 +51,7 @@ const routes = [
 		}
 	},
 	{
-		name: 'detail',
+		name: 'detail/id/:id',
 		component: () => import('./view/detail'),
 		meta: {
 			title: '商品详情'

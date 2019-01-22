@@ -3,27 +3,20 @@
 		<div style="padding-bottom: 60px;">
 			<van-nav-bar title="产品详情" left-text="返回" left-arrow @click-left="onClickLeft" />
 			<van-swipe :autoplay="3000" indicator-color="white">
-				<van-swipe-item><img src="https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg" alt=""
-					 class="detail-images"></van-swipe-item>
-				<van-swipe-item><img src="https://img.yzcdn.cn/public_files/2017/09/05/4e3ea0898b1c2c416eec8c11c5360833.jpg" alt=""
-					 class="detail-images"></van-swipe-item>
-				<van-swipe-item><img src="https://img.yzcdn.cn/public_files/2017/09/05/fd08f07665ed67d50e11b32a21ce0682.jpg" alt=""
-					 class="detail-images"></van-swipe-item>
+				<van-swipe-item v-for="item in skuData.goods_info.image"><img v-bind:src="appUrl + '/' + item" alt="" class="detail-images"></van-swipe-item>
 			</van-swipe>
 			<div class="van-cell-group van-hairline--top-bottom">
 				<div class="van-cell">
 					<div class="van-cell__title"><span>{{skuData.goods_info.title}}</span>
-						<div class="van-cell__label">{{skuData.goods_info.keyword}}</div>
+
 					</div>
 					<div class="van-cell__value"><span>销量:200</span></div>
 
 				</div>
 			</div>
-
-
 			<div class="van-cell-group van-hairline--top-bottom">
 				<div class="van-cell">
-					<div class="van-cell__title"><span>￥{{skuData.goods_info.price}}</span>
+					<div class="van-cell__title" style="color: #e4393c;"><span>￥{{skuData.goods_info.price}}</span>
 					</div>
 					<div class="van-cell__value"><span>库存:{{skuData.sku.stock_num}}</span></div>
 
@@ -48,7 +41,6 @@
 					折扣优惠
 				</van-col>
 			</van-row>
-
 			<div v-html="htmlvalue"></div>
 
 		</div>
@@ -109,7 +101,8 @@
 		},
 		data() {
 			return {
-				htmlvalue:[],
+				productId: 0,
+				htmlvalue: [],
 				product: [],
 				showBase: false,
 				showCustom: false,
@@ -153,6 +146,7 @@
 
 		created() {
 			//this.getData();
+			this.productId = this.$route.params.id;
 		},
 		mounted() {
 			this.getData();
@@ -160,11 +154,13 @@
 		methods: {
 			getData() {
 				this.url = '/api/product/detail';
-				this.$axios.post(this.url, {}, {
+				this.$axios.post(this.url, {
+					id: this.productId,
+				}, {
 					headers: {}
 				}).then((res) => {
 					this.skuData = res.data.data;
-					this.htmlvalue=res.data.data.goods_info.description;
+					this.htmlvalue = res.data.data.goods_info.description;
 				})
 
 			},
@@ -230,5 +226,9 @@
 
 	.van-cell-group {
 		background: #fff;
+	}
+
+	.van-swipe__indicator {
+		background: #000000;
 	}
 </style>
