@@ -3,8 +3,9 @@
 		<van-search placeholder="请输入搜索关键词" style='background:  #f8f8f8;' />
 		<!-- <van-list v-model="loading" :finished="finished" finished-text="这是我的底线了" @load="onLoad"> -->
 		<van-row class="list-cate">
-			<van-col span="12" class='list-pro' v-for="item in product">
-				<span class="list-cate-img"><a v-bind:href="'#/detail/id/'+item.id"><img v-bind:src="appUrl + '/' + item.cover_image" alt="" class="list-cate-images"></a></span>
+			<van-col span="12" class='list-pro' v-for="item in product" :key="item.id">
+				<span class="list-cate-img"><a v-bind:href="'#/detail/id/'+item.id"><img v-bind:src="appUrl + '/' + item.cover_image"
+						 alt="" class="list-cate-images"></a></span>
 				<span class="list-cate-title">{{item.name}}</span>
 				<span class="list-cate-price">￥{{item.price}}</span>
 			</van-col>
@@ -42,6 +43,7 @@
 		created() {
 			this.getData();
 		},
+		
 		methods: {
 			onLoad() {
 				// 异步更新数据
@@ -85,6 +87,11 @@
 		float: left;
 		text-align: left;
 		margin-left: 10%;
+		overflow: hidden;
+		-webkit-line-clamp: 2;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
 	}
 
 	.list-cate-img {

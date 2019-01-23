@@ -2,7 +2,7 @@
 	<div style="background: #fff;">
 		<van-search placeholder="请输入搜索关键词" style='background:  #f8f8f8;' />
 		<div style="padding-bottom: 60px;">
-			<div v-for="value in itemsList">
+			<div v-for="value in itemsList" :key="value.id">
 				<van-row class='items-banner'>
 					<van-col span="24"><img v-bind:src="appUrl + '/' + value.image" alt="" class="items-cate-images">
 					</van-col>
@@ -13,7 +13,7 @@
 					</van-col>
 				</van-row>
 				<van-row class="items-cate">
-					<van-col span="6" v-for="val in value.child" style="margin-top: 5px;">
+					<van-col span="6" v-for="val in value.child" style="margin-top: 5px;" :key="val.id">
 						<span class="items-cate-img"><a href="/#/list"><img v-bind:src="appUrl + '/' + val.image" alt="" class="items-cate-images"></a></span>
 						<span class="items-cate-title">{{val.items_name}}</span>
 					</van-col>
@@ -26,12 +26,9 @@
 
 <script>
 	import {
-
 		Search,
 		Row,
 		Col,
-		Tabbar,
-		TabbarItem,
 
 	} from 'vant';
 	import webFoot from '../footer/index.vue';

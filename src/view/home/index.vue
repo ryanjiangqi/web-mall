@@ -2,12 +2,9 @@
 	<div>
 		<van-search placeholder="请输入搜索关键词" style='background:  #f8f8f8;' />
 		<van-swipe :autoplay="3000" indicator-color="white">
-			<van-swipe-item><img src="../../../public/ba1.jpg" alt=""
-				 class="home-images"></van-swipe-item>
-			<van-swipe-item><img src="../../../public/ba2.jpg" alt=""
-				class="home-images"></van-swipe-item>
-				<van-swipe-item><img src="../../../public/ba1.jpg" alt=""
-					class="home-images"></van-swipe-item>
+				<van-swipe-item v-for="val in banner" :key="val.id" >
+				<img v-bind:src="appUrl + '/' + val.image" alt="" class="home-images">
+				</van-swipe-item>
 		</van-swipe>
 		<van-row class='home-m-bv'>
 			<van-col span="8" class='home-bv'>
@@ -24,68 +21,29 @@
 			</van-col>
 		</van-row>
 
-		<van-row class="home-cate" style="margin-top: 10px;">
-			<van-col span="6">
-				<span class="home-cate-img"><a href="/#/goods"><img src="../../../public/wj.png"
-						 alt="" class="home-cate-images"></a></span>
-				<span class="home-cate-title">益智玩具</span>
+		<van-row class="home-cate" style="margin-top: 10px;padding-bottom: 10px;">
+			<van-col span="6" v-for="val in itemsList" :key="val.id">
+				<span class="home-cate-img"><a href="/#/list"><img v-bind:src="appUrl + '/' + val.image" alt="" class="home-cate-images"></a></span>
+				<span class="home-cate-title">{{val.items_name}}</span>
 			</van-col>
-			<van-col span="6">
-				<span class="home-cate-img"><img src="https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg"
-					 alt="" class="home-cate-images"></span>
-				<span class="home-cate-title">分类名</span>
-			</van-col>
-			<van-col span="6">
-				<span class="home-cate-img"><img src="https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg"
-					 alt="" class="home-cate-images"></span>
-				<span class="home-cate-title">分类名</span>
-			</van-col>
-			<van-col span="6">
-				<span class="home-cate-img"><img src="https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg"
-					 alt="" class="home-cate-images"></span>
-				<span class="home-cate-title">分类名</span>
-			</van-col>
-		</van-row>
-		<van-row class="home-cate" style="padding-top: 5px;padding-bottom: 5px;">
-			<van-col span="6">
-				<span class="home-cate-img"><img src="https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg"
-					 alt="" class="home-cate-images"></span>
-				<span class="home-cate-title">分类名</span>
-			</van-col>
-			<van-col span="6">
-				<span class="home-cate-img"><img src="https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg"
-					 alt="" class="home-cate-images"></span>
-				<span class="home-cate-title">分类名</span>
-			</van-col>
-			<van-col span="6">
-				<span class="home-cate-img"><img src="https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg"
-					 alt="" class="home-cate-images"></span>
-				<span class="home-cate-title">分类名</span>
-			</van-col>
-			<van-col span="6">
-				<span class="home-cate-img"><img src="https://img.yzcdn.cn/public_files/2017/09/05/c0dab461920687911536621b345a0bc9.jpg"
-					 alt="" class="home-cate-images"></span>
-				<span class="home-cate-title">分类名</span>
-			</van-col>
+			
 		</van-row>
 
 		<div class="load_class">
-			<van-list v-model="loading" :finished="finished" finished-text="这是我的底线了" @load="onLoad">
-				<van-cell-group v-for="item in list" style="margin-top: 5px;">
-					<div class="pro_img"><img src="../../../public/ba1.jpg"
-						 alt=""></div>
-					<div class="pro_title">商品标题</div>
-					<div class="pro_desc">商品简介商品简介商品简介商品简介商品简介商品简介商品简介商品简介</div>
+				<van-cell-group  style="margin-top: 5px;" v-for="value in product" :key="value.id">
+					<div class="pro_img"><a v-bind:href="'#/detail/id/'+value.id"><img v-bind:src="appUrl + '/' + value.index_image" alt=""></a></div>
+					<div class="pro_title">{{value.name}}</div>
+					<div class="pro_desc">{{value.keyword}}</div>
 					<div class="pro_price">
 						<van-row type="flex" justify="space-between">
-							<van-col span="6" style="text-indent: 15px;">￥8888</van-col>
+							<van-col span="6" style="text-indent: 15px;color: #e4393c;font-size: 14px;">￥{{value.price}}</van-col>
 							<van-col span="6" style="margin-right:15px;">
-								<van-button type="danger">立即抢购</van-button>
+								<a v-bind:href="'#/detail/id/'+value.id"><van-button type="danger">立即抢购</van-button></a>
 							</van-col>
 						</van-row>
 					</div>
 				</van-cell-group>
-			</van-list>
+			
 		</div>
 		<web-foot :childActive="active"></web-foot>
 	</div>
@@ -127,41 +85,60 @@
 				active: 0,
 				list: [],
 				loading: false,
-				finished: false
+				finished: false,
+				itemsList:[],
+				product:[],
+				banner:[],
 			};
 		},
+		created(){
+			this.getItems();
+			this.getProduct();
+			this.getBanner();
+		},
 		methods: {
-			onLoad() {
-				// 异步更新数据
-				setTimeout(() => {
-					for (let i = 0; i < 10; i++) {
-						this.list.push(this.list.length + 1);
-					}
-					// 加载状态结束
-					this.loading = false;
-
-					// 数据全部加载完成
-					if (this.list.length >= 40) {
-						this.finished = true;
-					}
-				}, 500);
-			}
+			getItems(){
+				this.url = '/api/items/child';
+				this.$axios.post(this.url, {}, {
+					headers: {}
+				}).then((res) => {
+					this.itemsList = res.data.data;
+				})
+			},
+			getProduct(){
+				this.url = '/api/product/index';
+				this.$axios.post(this.url, {}, {
+					headers: {}
+				}).then((res) => {
+					this.product = res.data.data;
+				})
+			},
+			getBanner(){
+				this.url = '/api/banner';
+				this.$axios.post(this.url, {}, {
+					headers: {}
+				}).then((res) => {
+					this.banner = res.data.data;
+				})
+			},
 		}
 	};
 </script>
 <style>
 	.load_class {
 		padding-bottom: 60px;
-		color: rgba(69, 90, 100, .6);
 		font-size: 14px;
+		margin-top: 10px;
 	}
 
 	.pro_title {
 		padding: 5px 15px;
+		
 	}
 
 	.pro_desc {
 		padding: 5px 15px;
+		color: rgba(69, 90, 100, .6);
 	}
 
 	.pro_price {
@@ -203,6 +180,7 @@
 		background: #fff;
 		margin-top: 3px;
 		line-height: 40px;
+		color: rgba(69, 90, 100, .6);
 	}
 
 	.home-bv {
@@ -226,7 +204,6 @@
 	}
 
 	.home-cate-title {
-		color: rgba(69, 90, 100, .6);
 		font-size: 13px;
 		width: 100%;
 		float: left;
@@ -265,5 +242,8 @@
 	.home-van-card__desc {
 		margin-top: 8px;
 		font-size: 12px;
+	}
+	.home-cate-images {
+		width: 40px;
 	}
 </style>

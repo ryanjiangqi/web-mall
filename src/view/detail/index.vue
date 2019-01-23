@@ -7,19 +7,14 @@
 			</van-swipe>
 			<div class="van-cell-group van-hairline--top-bottom">
 				<div class="van-cell">
-					<div class="van-cell__title"><span>{{skuData.goods_info.title}}</span>
-
+					<div class="van-cell__title"><span>{{skuData.goods_info.title}}</span>	
 					</div>
-					<div class="van-cell__value"><span>销量:200</span></div>
-
 				</div>
 			</div>
 			<div class="van-cell-group van-hairline--top-bottom">
 				<div class="van-cell">
 					<div class="van-cell__title" style="color: #e4393c;"><span>￥{{skuData.goods_info.price}}</span>
 					</div>
-					<div class="van-cell__value"><span>库存:{{skuData.sku.stock_num}}</span></div>
-
 				</div>
 			</div>
 
@@ -53,8 +48,8 @@
 
 		<!-- 基础用法 -->
 		<div class="sku-container">
-			<van-sku v-model="showBase" :sku="skuData.sku" :goods="skuData.goods_info" :goods-id="skuData.goods_id" :hide-stock="skuData.sku.hide_stock"
-			 :quota="skuData.quota" :quota-used="skuData.quota_used" reset-stepper-on-hide reset-selected-sku-on-hide
+			<van-sku v-model="showBase" :sku="skuData.sku" :goods="skuData.goods_info" :goods-id="skuData.goods_id" :hide-stock='1'
+			 :quota="0" :quota-used="skuData.quota_used" reset-stepper-on-hide reset-selected-sku-on-hide
 			 disable-stepper-input :close-on-click-overlay="closeOnClickOverlay" :message-config="messageConfig"
 			 :custom-sku-validator="customSkuValidator" @buy-clicked="onBuyClicked" @add-cart="onAddCartClicked" />
 		</div>
@@ -230,5 +225,8 @@
 
 	.van-swipe__indicator {
 		background: #000000;
+	}
+	.van-stepper__input[disabled]{
+		color: #333;
 	}
 </style>
