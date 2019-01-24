@@ -2,23 +2,27 @@
 	<div>
 
 		<van-row class='home-m-bv'>
-			<van-col span="8" class='home-bv'>
+			<van-col span="6" class='home-bv'>
 				<van-icon name="passed" class='home-pass' />
 				精选品牌
 			</van-col>
-			<van-col span="8" class='home-bv'>
+			<van-col span="6" class='home-bv'>
 				<van-icon name="passed" class='home-pass' />
 				大V推荐
 			</van-col>
-			<van-col span="8" class='home-bv'>
+			<van-col span="6" class='home-bv'>
 				<van-icon name="passed" class='home-pass' />
 				无忧退货
 			</van-col>
+			<van-col span="6" class='home-bv'>
+				<van-icon name="passed" class='home-pass' />
+				折扣优惠
+			</van-col>
 		</van-row>
 		<van-checkbox-group class="card-goods" v-model="checkedGoods">
-			<van-checkbox class="card-goods__item" v-for="item in goods" :key="item.id" :name="item.id">
+			<van-checkbox class="card-goods__item" v-for="item in cart" :key="item.id" :name="item.id">
 				<van-swipe-cell :right-width="65" :on-close="onClose">
-					<van-card :title="item.title" :desc="item.desc" :num="item.num" :price="formatPrice(item.price)" :thumb="item.thumb" />
+					<van-card :title="item.product_name" :desc="item.att_name" :num="item.num" :price="formatPrice(item.price)" :thumb="appUrl + '/' + item.sku_image" />
 					<span slot="right">删除</span>
 				</van-swipe-cell>
 			</van-checkbox>
@@ -82,7 +86,8 @@
 					price: 2680,
 					num: 1,
 					thumb: 'https://img.yzcdn.cn/public_files/2017/10/24/320454216bbe9e25c7651e1fa51b31fd.jpeg'
-				}]
+				}],
+				cart:[],
 			};
 		},
 
@@ -96,13 +101,16 @@
 				return this.goods.reduce((total, item) => total + (this.checkedGoods.indexOf(item.id) !== -1 ? item.price : 0), 0);
 			}
 		},
-
+		created() {
+			this.getData();
+		},
 		methods: {
 			onClickLeft() {
 				this.$router.back(-1)
 			},
 			formatPrice(price) {
-				return (price / 100).toFixed(2);
+				//return (price / 100).toFixed(2);
+				return price;
 			},
 
 			onSubmit() {
@@ -123,6 +131,17 @@
 					case 'right':
 						break;
 				}
+			},
+			getData(){
+				this.$axios.post('/api/cart/list', {
+				
+				}, {
+					headers: {}
+				}).then((res) => {
+					this.cart = res.data.data;
+					//this.htmlvalue = res.data.data.goods_info.description;
+					
+				})
 			}
 		}
 	};
@@ -153,7 +172,8 @@
 			}
 
 			.van-card__price {
-				color: #f44;
+				color: #e4393c;
+				font-weight: normal;
 			}
 		}
 
@@ -190,5 +210,14 @@
 
 	.home-pass {
 		color: red;
+	}
+	.van-card__title{
+		font-weight:normal;
+	}
+	.van-submit-bar__price{
+		color: #e4393c;
+	}
+	.van-button--danger{
+		background:#e4393c ;
 	}
 </style>

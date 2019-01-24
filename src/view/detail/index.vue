@@ -3,7 +3,7 @@
 		<div style="padding-bottom: 60px;">
 			<van-nav-bar title="产品详情" left-text="返回" left-arrow @click-left="onClickLeft" />
 			<van-swipe :autoplay="3000" indicator-color="white">
-				<van-swipe-item v-for="item in skuData.goods_info.image"><img v-bind:src="appUrl + '/' + item" alt="" class="detail-images"></van-swipe-item>
+				<van-swipe-item v-for="item in skuData.goods_info.image" v-bind:key="item"><img v-bind:src="appUrl + '/' + item" alt="" class="detail-images"></van-swipe-item>
 			</van-swipe>
 			<div class="van-cell-group van-hairline--top-bottom">
 				<div class="van-cell">
@@ -109,7 +109,7 @@
 					s1: '30349',
 					s2: '1193'
 				},
-				customSkuValidator: () => '请选择xxx',
+				customSkuValidator: () => '请选择商品规格',
 				customStepperConfig: {
 					quotaText: '单次限购100件',
 					stockFormatter: (stock) => `剩余${stock}件`,
@@ -171,10 +171,24 @@
 
 			},
 			onBuyClicked(data) {
-				this.$toast(JSON.stringify(data));
+				//this.$toast(JSON.stringify(data));
 			},
 			onAddCartClicked(data) {
-				this.$toast(JSON.stringify(data));
+				this.$axios.post('/api/cart/add', {
+					product: data.goodsId,
+					num: data.selectedNum,
+					skuid: data.selectedSkuComb.id,
+				}, {
+					headers: {}
+				}).then((res) => {
+					//this.skuData = res.data.data;
+					//this.htmlvalue = res.data.data.goods_info.description;
+					this.$toast('购物车加入成功');
+				})
+				
+				
+				
+				//this.$toast(JSON.stringify(data));
 			},
 			onPointClicked() {
 				this.$toast('积分兑换');
@@ -231,6 +245,9 @@
 		color: #333;
 	}
 	.detail_edit img{
+		width: 100%;
+	}
+	.detail_edit p img{
 		width: 100%;
 	}
 </style>
