@@ -36,7 +36,7 @@
 					折扣优惠
 				</van-col>
 			</van-row>
-			<div v-html="htmlvalue"></div>
+			<div v-html="htmlvalue" class='detail_edit'></div>
 
 		</div>
 		<van-goods-action>
@@ -228,5 +228,8 @@
 	}
 	.van-stepper__input[disabled]{
 		color: #333;
+	}
+	.detail_edit img{
+		width: 100%;
 	}
 </style>

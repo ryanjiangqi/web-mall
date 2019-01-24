@@ -137,8 +137,14 @@
 	}
 
 	.pro_desc {
-		padding: 5px 15px;
+		padding: 3px 15px;
 		color: rgba(69, 90, 100, .6);
+		overflow: hidden;
+		-webkit-line-clamp: 2;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		
 	}
 
 	.pro_price {
