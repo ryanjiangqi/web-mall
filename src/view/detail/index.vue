@@ -184,10 +184,11 @@
 </script>
 <style>
 	.detail-images {
-		width: 343px;
-		height: 240px;
+		width: 300px;
+		height: 300px;
 	}
-
+	/*	width: 343px;
+		height: 240px;*/
 	.van-swipe-item {
 		text-align: center;
 		background: #fff;

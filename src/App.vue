@@ -16,4 +16,7 @@
 		background-color: #f8f8f8;
 		-webkit-font-smoothing: antialiased;
 	}
+	.detail_edit img{
+		width: 100%;
+	}
 </style>
